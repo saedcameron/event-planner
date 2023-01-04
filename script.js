@@ -1,33 +1,32 @@
-// Display today's day and date
-var todayDate = moment().format('dddd, MMM Do YYYY');
-$("#currentDay").html(todayDate);
+// today's day and date
+var date = moment().format('dddd, MMM Do YYYY');
+$("#currentDay").html(date);
 
 $(document).ready(function () {
-    // saveBtn click listener 
+    // saveBtn  
     $(".saveBtn").on("click", function () {
-        // Get nearby values of the description in JQuery
-        var text = $(this).siblings(".description").val();
-        var time = $(this).parent().attr("id");
+        var content = $(this).body(".description").val();
+        var time = $(this).limbs().attr("id");
 
-        // Save text in local storage
-        localStorage.setItem(time, text);
+       
+        localStorage.setItem(time, content);
     })
    
-    function timeTracker() {
+    function timeKeeper() {
         //get current number of hours.
-        var timeNow = moment().hour();
+        var currentTime = moment().hour();
 
-        // loop over time blocks
+       
         $(".time-block").each(function () {
-            var blockTime = parseInt($(this).attr("id").split("hour")[1]);
+            var slotTime = parseInt($(this).attr("id").split("hour")[1]);
 
-            // To check the time and add the classes for background indicators
-            if (blockTime < timeNow) {
+           
+            if (slotTime < currentTime) {
                 $(this).removeClass("future");
                 $(this).removeClass("present");
                 $(this).addClass("past");
             }
-            else if (blockTime === timeNow) {
+            else if (slotTime === currentTime) {
                 $(this).removeClass("past");
                 $(this).removeClass("future");
                 $(this).addClass("present");
@@ -41,7 +40,7 @@ $(document).ready(function () {
         })
     }
 
-    // Get item from local storage if any
+   
     $("#hour8 .description").val(localStorage.getItem("hour8"));
     $("#hour9 .description").val(localStorage.getItem("hour9"));
     $("#hour10 .description").val(localStorage.getItem("hour10"));
@@ -53,5 +52,5 @@ $(document).ready(function () {
     $("#hour16 .description").val(localStorage.getItem("hour16"));
     $("#hour17 .description").val(localStorage.getItem("hour17"));
 
-    timeTracker();
+    timeKeeper();
 })
